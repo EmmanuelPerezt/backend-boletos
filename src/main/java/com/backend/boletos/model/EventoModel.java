@@ -3,6 +3,8 @@ package com.backend.boletos.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.backend.boletos.dtos.EventoDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +27,7 @@ public class EventoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
+    private String nombre_evento;
     private String descripcion;
     private LocalDateTime fecha;
     private String lugar;
@@ -34,5 +36,13 @@ public class EventoModel {
     @OneToMany(mappedBy = "evento")
     private List<BoletoModel> boletos;
 
+
+    public EventoModel(EventoDto eventoDto) {
+        this.nombre_evento = eventoDto.nombre();
+        this.descripcion = eventoDto.descripcion();
+        this.fecha = eventoDto.fecha();
+        this.lugar = eventoDto.lugar();
+        this.capacidad = eventoDto.capacidad();
+    }
 
 }
