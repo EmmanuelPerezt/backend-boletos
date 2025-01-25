@@ -1,8 +1,5 @@
 package com.backend.boletos;
 
-
-
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,8 +8,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Component;
 
-import com.backend.boletos.dtos.EventoDto;
-import com.backend.boletos.service.EventoService;
+import com.backend.boletos.dtos.BoletoDto;
+import com.backend.boletos.service.BoletoService;
+
+
+
 
 @SpringBootApplication
 public class BackendBoletosApplication {
@@ -20,28 +20,24 @@ public class BackendBoletosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackendBoletosApplication.class, args);
 	}
-
 }
 @Component
  class runner implements CommandLineRunner {
 
-	private final EventoService eventoService;
+	private final BoletoService boletoService;
 
-	public runner(EventoService eventoService) {
-		this.eventoService = eventoService;
+	public runner(BoletoService boletoService) {
+		this.boletoService = boletoService;
 	}
-
 
 	@Override
 	public void run(String... args) throws Exception {
-
-		List<EventoDto> eventos = Arrays.asList(
-			new EventoDto("concierto1", "concierto de rock", LocalDateTime.now(), "foro sol", 1000),
-			new EventoDto("concierto2", "concierto de rock", LocalDateTime.now(), "foro sol", 1000),
-			new EventoDto("concierto3", "concierto de rock", LocalDateTime.now(), "foro sol", 1000)
+		List<BoletoDto> boletos = Arrays.asList(new BoletoDto(300,1L,1L),
+												new BoletoDto(500,1L,1L),
+												new BoletoDto(800,1L,1L)
 		);
-		eventos.forEach(
-			evento -> eventoService.createEvento(evento)
-		);		
+		boletos.forEach(
+			b->boletoService.createBoleto(b)
+		);
 	}
 }
