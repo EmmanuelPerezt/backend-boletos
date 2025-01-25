@@ -2,7 +2,7 @@ package com.backend.boletos.model;
 
 import java.util.UUID;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -34,7 +34,8 @@ public class BoletoModel {
     @Id
     private UUID id_boleto;
     private int precio;
-    private Boolean valido;
+    @Column(columnDefinition = "boolean default false")
+    private Boolean valido = true;
 
     @ManyToOne
     @JoinColumn(name = "id_evento")
