@@ -28,13 +28,24 @@ public class EventoService {
         return eventoDto;
 
     }
-    public void getEvento() {
-    
+    public EventoDto getEvento(Long id) {
+        var evento = eventoRepository.findById(1L).get();
+        return new EventoDto(evento);
     }
-    public void updateEvento() {
-        // TODO Auto-generated method stub
+    public void updateEvento(Long id ,EventoDto evento) {
+        EventoModel eventoEntity = eventoRepository.findById(id).get();
+        eventoEntity.setNombre_evento(evento.nombre());
+        eventoEntity.setDescripcion(evento.descripcion());
+        eventoEntity.setFecha(evento.fecha());
+        eventoEntity.setLugar(evento.lugar());
+        eventoEntity.setCapacidad(evento.capacidad());
+        eventoRepository.save(eventoEntity);
     }
-    public void deleteEvento() {
-        // TODO Auto-generated method stub
+    public void deleteEvento(Long id) {
+        try {
+            eventoRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Evento no encontrado");
+        }
     }
 }
