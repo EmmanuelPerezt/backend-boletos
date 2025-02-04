@@ -39,11 +39,11 @@ public class BoletoService {
         boletoRepository.save(boletoparse);
 
     }
-    public void getBoleto(Long id) {
-        boletoRepository.findById(id);
+    public BoletoModel getBoleto(UUID id) {
+       return boletoRepository.findById(id).get();
     }
     @Transactional
-    public void updateBoleto(Long id, BoletoDto boleto) {
+    public void updateBoleto(UUID id, BoletoDto boleto) {
 
         BoletoModel boletoModel = boletoRepository.findById(id).get();
         boletoModel.setPrecio(boleto.precio());
@@ -51,7 +51,7 @@ public class BoletoService {
         boletoModel.setUsuario(usuarioRepository.findById(boleto.id_usuario()).get());
         boletoRepository.save(boletoModel);
     }   
-    public void deleteBoleto(Long id) {
+    public void deleteBoleto(UUID id) {
         boletoRepository.deleteById(id);
     }
 }
