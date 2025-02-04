@@ -10,4 +10,3 @@ public class BackendBoletosApplication {
 		SpringApplication.run(BackendBoletosApplication.class, args);
 	}
 }
-

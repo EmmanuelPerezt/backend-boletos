@@ -39,13 +39,19 @@ public class BoletoService {
         boletoRepository.save(boletoparse);
 
     }
-    public void getBoleto() {
-        // TODO Auto-generated method stub
+    public void getBoleto(Long id) {
+        boletoRepository.findById(id);
     }
-    public void updateBoleto() {
-        // TODO Auto-generated method stub
-    }
-    public void deleteBoleto() {
-        // TODO Auto-generated method stub
+    @Transactional
+    public void updateBoleto(Long id, BoletoDto boleto) {
+
+        BoletoModel boletoModel = boletoRepository.findById(id).get();
+        boletoModel.setPrecio(boleto.precio());
+        boletoModel.setEvento(eventoRepository.findById(boleto.id_evento()).get());
+        boletoModel.setUsuario(usuarioRepository.findById(boleto.id_usuario()).get());
+        boletoRepository.save(boletoModel);
+    }   
+    public void deleteBoleto(Long id) {
+        boletoRepository.deleteById(id);
     }
 }
