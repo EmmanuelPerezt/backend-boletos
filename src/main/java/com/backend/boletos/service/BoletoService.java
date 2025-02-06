@@ -1,5 +1,6 @@
 package com.backend.boletos.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -53,5 +54,8 @@ public class BoletoService {
     }   
     public void deleteBoleto(UUID id) {
         boletoRepository.deleteById(id);
+    }
+    public List<BoletoModel> finByUserId(Long id){
+       return boletoRepository.findByUsuarioID(id);
     }
 }
