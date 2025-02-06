@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.backend.boletos.dtos.BoletoDto;
+import com.backend.boletos.dtos.BoletoResponseDto;
 import com.backend.boletos.model.BoletoModel;
 import com.backend.boletos.model.EventoModel;
 import com.backend.boletos.model.UsuarioModel;
@@ -55,7 +56,13 @@ public class BoletoService {
     public void deleteBoleto(UUID id) {
         boletoRepository.deleteById(id);
     }
-    public List<BoletoModel> finByUserId(Long id){
-       return boletoRepository.findByUsuarioID(id);
+    public List<BoletoResponseDto> finByUserId(Long id){
+
+        //iteramos sobre la lista para regresar una lista sin datos sensibles
+
+       return boletoRepository.findByUsuarioID(id)
+                .stream()
+                .map(BoletoResponseDto::new)
+                .toList();
     }
 }
