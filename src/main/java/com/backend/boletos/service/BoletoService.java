@@ -32,13 +32,16 @@ public class BoletoService {
 
 
     @Transactional
-    public void createBoleto(BoletoDto boleto) {
+    public BoletoResponseDto createBoleto(BoletoDto boleto) {
 
         EventoModel id_evento = eventoRepository.findById(boleto.id_evento()).orElseThrow(() -> new RuntimeException("Evento no encontrado"));
         UsuarioModel id_usuario = usuarioRepository.findById(boleto.id_usuario()).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         var boletoparse = new BoletoModel(UUID.randomUUID(), boleto.precio(), id_evento, id_usuario);
     
         boletoRepository.save(boletoparse);
+
+        var boletoResponse = new BoletoResponseDto(boletoparse);
+        return boletoResponse;
 
     }
     public BoletoModel getBoleto(UUID id) {
