@@ -39,15 +39,14 @@ public class BoletoController {
 
         return ResponseEntity.ok().body(boletoService.createBoleto(boleto));
     }
-
+    @PostMapping("/{uuid}")
+    public ResponseEntity<BoletoDto> updateBoleto(@PathVariable UUID uuid, @RequestBody BoletoDto boleto){
+        return ResponseEntity.ok().body(boletoService.updateBoleto(uuid, boleto));
+    }
     @DeleteMapping("/{uuid}")
     public ResponseEntity<Void> deleteBoleto(@PathVariable UUID uuid){
 
         boletoService.deleteBoleto(uuid);
         return ResponseEntity.ok().build();
-    }       
-
-    //implementar los demas metodos
-
-
+    }
 }

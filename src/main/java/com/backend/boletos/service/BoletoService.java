@@ -48,13 +48,14 @@ public class BoletoService {
        return boletoRepository.findById(id).get();
     }
     @Transactional
-    public void updateBoleto(UUID id, BoletoDto boleto) {
+    public BoletoDto updateBoleto(UUID id, BoletoDto boleto) {
 
         BoletoModel boletoModel = boletoRepository.findById(id).get();
         boletoModel.setPrecio(boleto.precio());
         boletoModel.setEvento(eventoRepository.findById(boleto.id_evento()).get());
         boletoModel.setUsuario(usuarioRepository.findById(boleto.id_usuario()).get());
         boletoRepository.save(boletoModel);
+        return boleto;
     }   
     public void deleteBoleto(UUID id) {
         boletoRepository.deleteById(id);
