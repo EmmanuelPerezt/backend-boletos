@@ -33,7 +33,6 @@ public class BoletoController {
         
         return ResponseEntity.ok().body(boletoService.finByUserId(id));
     }
-
     @PostMapping
     public ResponseEntity<BoletoResponseDto> createBoleto(@RequestBody BoletoDto boleto){
 

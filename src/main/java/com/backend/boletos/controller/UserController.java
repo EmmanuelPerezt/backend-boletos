@@ -34,6 +34,11 @@ public UserController(UsuarioService usuarioService){
 
         return ResponseEntity.ok().body(usuarioDto.username());
     }
-
-    
+    @RequestMapping("/login")
+    @PostMapping
+    public ResponseEntity<String> login(@RequestBody UsuarioDto usuarioDto){
+        return usuarioService.login(usuarioDto) 
+        ? ResponseEntity.ok().body("usuario correcto")
+        : ResponseEntity.notFound().build();
+    }
 }

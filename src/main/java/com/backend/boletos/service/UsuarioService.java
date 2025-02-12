@@ -3,6 +3,7 @@ package com.backend.boletos.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.backend.boletos.dtos.UsuarioDto;
@@ -15,16 +16,17 @@ public class UsuarioService {
 
 
     private final  UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
     
 
-    public UsuarioService(UsuarioRepository usuarioRepository){
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder){
         this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder= passwordEncoder;
     }
 
 
     public void createUsuario(UsuarioDto usuarioDto){
-        //se debe encriptar la contraseña
-        var usuario = new UsuarioModel(usuarioDto.username(), usuarioDto.password());
+        var usuario = new UsuarioModel(usuarioDto.username(), passwordEncoder.encode(usuarioDto.password()));
         usuarioRepository.save(usuario);
     }
     public List<String> getByID(long id){
@@ -32,5 +34,9 @@ public class UsuarioService {
         List<String> lista = new ArrayList<>();
         lista.add(usuario.getUsername());
         return lista;
+    }
+    public Boolean login(UsuarioDto usuarioDto){
+       var user = usuarioRepository.findUserByUsername(usuarioDto.username());
+      return passwordEncoder.matches(usuarioDto.password(), user.getPassword());
     }
 }   
