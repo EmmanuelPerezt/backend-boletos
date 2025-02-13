@@ -1,6 +1,8 @@
 package com.backend.boletos.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +38,11 @@ public UserController(UsuarioService usuarioService){
     }
     @RequestMapping("/login")
     @PostMapping
-    public ResponseEntity<String> login(@RequestBody UsuarioDto usuarioDto){
+    public ResponseEntity<Map<String, String>> login(@RequestBody UsuarioDto usuarioDto){
+        Map <String, String> response = new HashMap<>();
+        response.put("message", "usuario correcto");
         return usuarioService.login(usuarioDto) 
-        ? ResponseEntity.ok().body("usuario correcto")
+        ? ResponseEntity.ok().body(response)
         : ResponseEntity.notFound().build();
     }
 }

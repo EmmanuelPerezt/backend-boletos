@@ -44,6 +44,4 @@ public class BoletoModel {
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     private UsuarioModel usuario;
-
-
 }
